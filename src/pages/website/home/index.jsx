@@ -1,10 +1,11 @@
 import BrandPartners from "./features/BrandPartners";
 import BrochureDownloads from "./features/BrochureDownloads";
+import ContactMapSection from "../../../components/website/ContactMapSection";
 import HomeHeroSection from "./features/HomeHeroSection";
 import IndustrialProducts from "./features/IndustrialProducts";
 import NikonikkosStandard from "./features/NikonikkosStandard";
 import Solutions from "./features/Solutions";
-import TestimonialsCarousel from "./features/TestimonialsCarousel";
+import TestimonialsCarousel from "../../../components/website/TestimonialsCarousel";
 
 const HomePage = () => {
   return (
@@ -16,6 +17,7 @@ const HomePage = () => {
       <BrandPartners />
       <BrochureDownloads />
       <TestimonialsCarousel />
+      <ContactMapSection />
     </>
   );
 };

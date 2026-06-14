@@ -1,6 +1,7 @@
 export { default as loginForm } from "./login-form.png";
 export { default as perfil } from "./Perfil.jpg";
 export { default as heroSectionAlt } from "./HeroSectionAlt.png";
+export { default as galleryHeroBackground } from "./gallery-hero-background.png";
 export { default as homeHeroPainter } from "./home-hero-painter.png";
 export { default as basfLogo } from "./Basf logo, marine and industrial paints.png";
 export { default as duluxLogo } from "./Dulux logo, professional brand icon.png";
@@ -11,6 +12,8 @@ export { default as productBituShield } from "./product-bitu-shield.png";
 export { default as productHydroShield } from "./product-hydro-shield.png";
 export { default as productWallShield } from "./product-wall-shield.png";
 export { default as sherwinWilliamsLogo } from "./Sherwin Williams logo, professional brand icon.png";
+export { default as shopHeroBackground } from "./shop-hero-background.png";
+export { default as shopHero } from "./shophero.png";
 export { default as sikaLogo } from "./Sika logo, industrial construction brand.png";
 export { default as solutionDecorativeFinishes } from "./solution-decorative-finishes.png";
 export { default as solutionPaint } from "./solution-paint.png";

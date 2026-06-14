@@ -9,16 +9,32 @@ import WebsiteLayout from "./layouts/WebsiteLayout";
 import WebsiteHome from "./pages/website/home";
 import WebsiteAbout from "./pages/website/about";
 import WebsiteContact from "./pages/website/contact";
+import WebsiteShop from "./pages/website/shop";
+import WebsiteGallery from "./pages/website/gallery";
+import ProductDetailPage from "./pages/website/shop/product/ProductDetailPage";
 import NotificationsPage from "./pages/admin/notifications";
 import AdminChat from "./pages/admin/chat";
 
 import AdminDashboard from "./pages/admin/dashboard";
+import AdminProducts from "./pages/admin/products";
+import AddProductPage from "./pages/admin/products/new";
+import AdminCategories from "./pages/admin/categories";
+import AddCategoryPage from "./pages/admin/categories/new";
+import AdminBrands from "./pages/admin/brands";
+import AddBrandPage from "./pages/admin/brands/new";
+import AdminOrders from "./pages/admin/orders";
+import OrderDetailPage from "./pages/admin/orders/detail";
+import AdminSettings from "./pages/admin/settings";
+import AdminCustomers from "./pages/admin/customers";
 
 const AppRouter = () => {
   return (
     <Routes>
       <Route element={<WebsiteLayout />}>
         <Route path="/" element={<WebsiteHome />} />
+        <Route path="/shop" element={<WebsiteShop />} />
+        <Route path="/shop/:productId" element={<ProductDetailPage />} />
+        <Route path="/gallery" element={<WebsiteGallery />} />
         <Route path="/about" element={<WebsiteAbout />} />
         <Route path="/contact" element={<WebsiteContact />} />
       </Route>
@@ -37,6 +53,16 @@ const AppRouter = () => {
       >
         <Route index element={<AdminDashboard />} />
         <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="products" element={<AdminProducts />} />
+        <Route path="products/new" element={<AddProductPage />} />
+        <Route path="categories" element={<AdminCategories />} />
+        <Route path="categories/new" element={<AddCategoryPage />} />
+        <Route path="brands" element={<AdminBrands />} />
+        <Route path="brands/new" element={<AddBrandPage />} />
+        <Route path="orders" element={<AdminOrders />} />
+        <Route path="orders/:orderId" element={<OrderDetailPage />} />
+        <Route path="customers" element={<AdminCustomers />} />
+        <Route path="settings" element={<AdminSettings />} />
         <Route path="chat" element={<AdminChat />} />
         <Route path="notifications" element={<NotificationsPage />} />
       </Route>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import {
   Clock,
@@ -8,17 +9,18 @@ import {
   Search,
   Truck,
   User,
+  X,
 } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { logo } from "../assets/logos";
 
 const navLinks = [
   { label: "Home", to: "/" },
-  { label: "Shop", to: "#" },
+  { label: "Shop", to: "/shop" },
   { label: "Categories", to: "#" },
   { label: "Brands", to: "#" },
   { label: "Brochures", to: "#" },
-  { label: "Gallery", to: "#" },
+  { label: "Gallery", to: "/gallery" },
   { label: "About", to: "/about" },
   { label: "Contact", to: "/contact" },
 ];
@@ -36,6 +38,14 @@ const socialLinks = [
 ];
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const closeMobilePanels = () => {
+    setIsMenuOpen(false);
+    setIsSearchOpen(false);
+  };
+
   return (
     <header className="sticky top-0 z-30 w-full bg-white shadow-sm">
       <div className="bg-black text-white">
@@ -137,16 +147,40 @@ const Header = () => {
             </div>
           </div>
 
-          <button
-            type="button"
-            aria-label="Open menu"
-            className="inline-flex size-10 items-center justify-center rounded-lg border border-gray-200 text-zinc-900 transition hover:border-red-600 hover:text-red-600 xl:hidden"
-          >
-            <Menu className="h-5 w-5" />
-          </button>
+          <div className="ml-auto flex items-center gap-3 xl:hidden">
+            <button
+              type="button"
+              aria-label="Toggle search"
+              aria-expanded={isSearchOpen}
+              onClick={() => {
+                setIsSearchOpen((previous) => !previous);
+                setIsMenuOpen(false);
+              }}
+              className="inline-flex size-10 items-center justify-center rounded-lg border border-gray-200 text-zinc-900 transition hover:border-red-600 hover:text-red-600"
+            >
+              <Search className="h-5 w-5" />
+            </button>
+
+            <button
+              type="button"
+              aria-label="Toggle menu"
+              aria-expanded={isMenuOpen}
+              onClick={() => {
+                setIsMenuOpen((previous) => !previous);
+                setIsSearchOpen(false);
+              }}
+              className="inline-flex size-10 items-center justify-center rounded-lg border border-gray-200 text-zinc-900 transition hover:border-red-600 hover:text-red-600"
+            >
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
 
-        <div className="border-t border-gray-100 px-6 py-3 lg:hidden">
+        <div
+          className={`border-t border-gray-100 px-6 py-3 xl:hidden ${
+            isSearchOpen ? "block" : "hidden"
+          }`}
+        >
           <label className="relative mx-auto block max-w-xl">
             <span className="sr-only">Search products</span>
             <input
@@ -157,6 +191,59 @@ const Header = () => {
             <Search className="pointer-events-none absolute right-5 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
           </label>
         </div>
+
+        <nav
+          className={`border-t border-gray-100 bg-white px-6 py-4 xl:hidden ${
+            isMenuOpen ? "block" : "hidden"
+          }`}
+        >
+          <div className="mx-auto flex max-w-xl flex-col gap-1">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.label}
+                to={link.to}
+                onClick={closeMobilePanels}
+                className={({ isActive }) =>
+                  [
+                    "rounded-lg px-4 py-3 text-sm font-semibold uppercase leading-5 tracking-wide transition",
+                    isActive && link.to !== "#"
+                      ? "bg-red-600 text-white"
+                      : "text-zinc-900 hover:bg-gray-100 hover:text-red-600",
+                  ].join(" ")
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+
+            <div className="mt-3 flex items-center gap-5 border-t border-gray-100 px-4 pt-4">
+              <Link
+                to="/login"
+                onClick={closeMobilePanels}
+                aria-label="Account"
+                className="inline-flex items-center gap-2 text-sm font-semibold uppercase text-zinc-900 transition hover:text-red-600"
+              >
+                <User className="h-5 w-5" strokeWidth={2.25} />
+                Account
+              </Link>
+
+              <Link
+                to="#"
+                onClick={closeMobilePanels}
+                aria-label="Wishlist"
+                className="relative inline-flex items-center gap-2 text-sm font-semibold uppercase text-zinc-900 transition hover:text-red-600"
+              >
+                <span className="relative">
+                  <Heart className="h-5 w-5" strokeWidth={2.25} />
+                  <span className="absolute -right-2.5 -top-2 flex size-4 items-center justify-center rounded-full bg-red-600 text-[9px] font-normal leading-none text-white">
+                    0
+                  </span>
+                </span>
+                Wishlist
+              </Link>
+            </div>
+          </div>
+        </nav>
       </div>
     </header>
   );

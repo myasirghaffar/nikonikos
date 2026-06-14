@@ -1,116 +1,60 @@
-import { Menu } from "lucide-react";
-import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import {
-  ChevronDownIcon,
-  HeaderLanguageIcon,
-  HeaderNotificationBellIcon,
-} from "../../assets/icons/icons";
+import { Bell, ChevronDown, Menu, Search } from "lucide-react";
 
-function Header({ toggleSidebar }) {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const currentRole = useSelector((state) => state.auth.user?.role);
-  const unreadCount = 0;
-
-  const getHeaderMeta = () => {
-    if (location.pathname.includes("/dashboard")) {
-      return {
-        title: "Dashboard",
-        subtitle: `${currentRole ? `${currentRole} ` : ""}overview and statistics`,
-      };
-    }
-
-    const path = location.pathname;
-    const headerMap = [
-      [
-        "chat",
-        {
-          title: "Chat",
-          subtitle: "Messages and conversations",
-        },
-      ],
-      [
-        "profile",
-        {
-          title: "Profile",
-          subtitle: "View and manage your profile",
-        },
-      ],
-      [
-        "notifications",
-        {
-          title: "Notifications",
-          subtitle: "View and manage your notifications",
-        },
-      ],
-    ];
-
-    for (const [route, meta] of headerMap) {
-      if (path.includes(route)) return meta;
-    }
-
-    const lastPath = path.split("/").filter(Boolean).pop() || "dashboard";
-    const title = lastPath
-      .split("-")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-
-    return {
-      title,
-      subtitle: "Admin overview and statistics",
-    };
-  };
-
-  const headerMeta = getHeaderMeta();
-
+const Header = ({ toggleSidebar }) => {
   return (
-    <header className="z-10 md:ml-[18.5625rem] md:w-[calc(100%-18.5625rem)] bg-white border-b border-gray-200">
-      <div className="flex min-h-20 items-center justify-between px-4 md:px-8 py-4">
-        <div className="min-w-0">
-          <h2 className="truncate text-lg font-semibold leading-7 text-slate-900">
-            {headerMeta.title}
-          </h2>
-          <p className="truncate text-sm font-normal leading-5 text-gray-600">
-            {headerMeta.subtitle}
-          </p>
-        </div>
+    <header className="flex h-20 items-center justify-between border-b border-zinc-800 bg-neutral-900/80 px-5 backdrop-blur-md md:px-10">
+      <div className="flex flex-1 items-center gap-4">
+        <button
+          type="button"
+          onClick={toggleSidebar}
+          aria-label="Open sidebar"
+          className="rounded-lg border border-zinc-800 p-2 text-gray-400 lg:hidden"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
 
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => {
-              navigate("/admin/notifications");
-            }}
-            className="relative hidden md:flex h-9 w-9 items-center justify-center rounded-[10px] text-[#4A5565] hover:bg-gray-100 transition-colors"
-            aria-label="Notifications"
-          >
-            <HeaderNotificationBellIcon className="h-5 w-5" />
-            {unreadCount > 0 ? (
-              <span className="absolute right-[7px] top-[7px] h-2 w-2 rounded-full bg-[#E00F0F]" />
-            ) : null}
-          </button>
+        <label className="relative hidden w-full max-w-[448px] md:block">
+          <span className="sr-only">Search anything</span>
+          <input
+            type="search"
+            placeholder="Search anything here..."
+            className="h-12 w-full rounded-full border border-zinc-800 bg-stone-900 py-2.5 pl-11 pr-4 text-sm text-white outline-none placeholder:text-gray-500 focus:ring-1 focus:ring-rose-700"
+          />
+          <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-500" />
+        </label>
+      </div>
 
-          <button
-            type="button"
-            className="hidden md:inline-flex h-10 items-center gap-2 rounded-[10px] border border-gray-200 bg-white px-4 text-gray-600 hover:bg-gray-50 transition-colors"
-          >
-            <HeaderLanguageIcon className="h-4 w-4" />
-            <span className="text-sm font-medium leading-5">Eng</span>
-            <ChevronDownIcon className="h-4 w-4" />
-          </button>
+      <div className="flex items-center gap-4">
+        <button
+          type="button"
+          aria-label="Notifications"
+          className="relative flex size-10 items-center justify-center rounded-full border border-zinc-800 text-gray-400"
+        >
+          <Bell className="h-5 w-5" />
+          <span className="absolute right-2 top-2 size-2 rounded-full bg-rose-700 shadow-[0_0_15px_rgba(200,16,46,0.3)]" />
+        </button>
 
-          <button
-            onClick={toggleSidebar}
-            className="inline-flex md:hidden bg-zinc-900 hover:bg-black text-white rounded-lg p-2 border border-white/10 transition-colors"
-            aria-label="Open sidebar"
-          >
-            <Menu className="w-5 h-5" />
-          </button>
-        </div>
+        <div className="hidden h-8 w-px bg-[#2D2D2D] sm:block" />
+
+        <button type="button" className="flex items-center gap-3">
+          <img
+            src="https://i.pravatar.cc/80?img=12"
+            alt="Mike Smith"
+            className="size-10 rounded-full border border-[#2D2D2D] object-cover"
+          />
+          <span className="hidden flex-col items-start sm:flex">
+            <span className="text-sm font-medium leading-5 tracking-tight text-white">
+              Mike Smith
+            </span>
+            <span className="text-xs font-normal leading-4 text-gray-500">
+              Super Admin
+            </span>
+          </span>
+          <ChevronDown className="hidden h-4 w-4 text-gray-500 sm:block" />
+        </button>
       </div>
     </header>
   );
-}
+};
 
 export default Header;
