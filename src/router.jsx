@@ -8,6 +8,8 @@ import NotFound from "./pages/NotFound";
 import WebsiteLayout from "./layouts/WebsiteLayout";
 import WebsiteHome from "./pages/website/home";
 import WebsiteAbout from "./pages/website/about";
+import WebsiteBrands from "./pages/website/brands";
+import WebsiteBrochures from "./pages/website/brochures";
 import WebsiteContact from "./pages/website/contact";
 import WebsiteShop from "./pages/website/shop";
 import WebsiteGallery from "./pages/website/gallery";
@@ -36,6 +38,8 @@ const AppRouter = () => {
         <Route path="/shop/:productId" element={<ProductDetailPage />} />
         <Route path="/gallery" element={<WebsiteGallery />} />
         <Route path="/about" element={<WebsiteAbout />} />
+        <Route path="/brands" element={<WebsiteBrands />} />
+        <Route path="/brochures" element={<WebsiteBrochures />} />
         <Route path="/contact" element={<WebsiteContact />} />
       </Route>
 

@@ -13,21 +13,22 @@ import { Send } from "lucide-react";
 import { logo } from "../assets/logos";
 
 const quickLinks = [
+  { label: "Home", to: "/" },
   { label: "Our Story", to: "/about" },
-  { label: "Shop All Products", to: "#" },
-  { label: "Special Offers", to: "#" },
-  { label: "Delivery Information", to: "#" },
-  { label: "Terms & Conditions", to: "#" },
-  { label: "Privacy Policy", to: "#" },
+  { label: "Shop All Products", to: "/shop" },
+  { label: "Brands", to: "/brands" },
+  { label: "Brochures", to: "/brochures" },
+  { label: "Gallery", to: "/gallery" },
+  { label: "Contact Us", to: "/contact" },
 ];
 
 const categories = [
-  "Decorative Paints",
-  "Industrial Coatings",
-  "Roof Waterproofing",
-  "Wall Insulation",
-  "Tools & Accessories",
-  "Flooring Solutions",
+  { label: "Decorative Paints", to: "/shop" },
+  { label: "Industrial Coatings", to: "/shop" },
+  { label: "Roof Waterproofing", to: "/shop" },
+  { label: "Wall Insulation", to: "/shop" },
+  { label: "Tools & Accessories", to: "/shop" },
+  { label: "Flooring Solutions", to: "/shop" },
 ];
 
 const socialLinks = [
@@ -87,11 +88,11 @@ const Footer = () => {
         <FooterColumn title="Categories">
           {categories.map((category) => (
             <Link
-              key={category}
-              to="#"
+              key={category.label}
+              to={category.to}
               className="text-sm leading-5 text-gray-400 transition hover:text-white"
             >
-              {category}
+              {category.label}
             </Link>
           ))}
         </FooterColumn>
